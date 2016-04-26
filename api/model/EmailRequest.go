@@ -27,3 +27,13 @@ func (p *emailRequest) getTemplateID() string {
 func (p *emailRequest) getPersonalisation() personalisation {
 	return p._personalisation
 }
+
+func (p *emailRequest) build() {
+
+}
+
+func (p *emailRequest) validate() bool {
+	// TODO VALIDATE EMAIL
+
+	return true
+}
