@@ -1,5 +1,7 @@
 package model
 
+import "regexp"
+
 // EmailRequest - Represents an email request
 type EmailRequest interface {
 	GetEmail() string
@@ -11,9 +13,6 @@ type emailRequest struct {
 	_email           string
 	_templateID      string
 	_personalisation personalisation
-}
-
-type personalisation struct {
 }
 
 func (p *emailRequest) GetEmail() string {
@@ -28,17 +27,22 @@ func (p *emailRequest) GetPersonalisation() personalisation {
 	return p._personalisation
 }
 
-func (p *emailRequest) validate() bool {
-	// TODO VALIDATE EMAIL
-
-	return true
-}
-
-func (p *emailRequest) Build(email string) emailRequest {
+func (p *emailRequest) Build(email string, templateID string, pers personalisation) (emailRequest, error) {
 
 	var req emailRequest
-	req._email = email
+	var err error
 
-	return req
+	if validateEmail(email) {
+		req._email = email
+		req._templateID = templateID
+		req._personalisation = pers
 
+	}
+
+	return req, err
+}
+
+func validateEmail(email string) bool {
+	Re := regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$`)
+	return Re.MatchString(email)
 }
