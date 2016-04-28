@@ -2,9 +2,9 @@ package model
 
 // EmailRequest - Represents an email request
 type EmailRequest interface {
-	getEmail() string
-	getTemplateId() string
-	getPersonalisation() personalisation
+	GetEmail() string
+	GetTemplateId() string
+	GetPersonalisation() personalisation
 }
 
 type emailRequest struct {
@@ -16,24 +16,29 @@ type emailRequest struct {
 type personalisation struct {
 }
 
-func (p *emailRequest) getEmail() string {
+func (p *emailRequest) GetEmail() string {
 	return p._email
 }
 
-func (p *emailRequest) getTemplateID() string {
+func (p *emailRequest) GetTemplateID() string {
 	return p._templateID
 }
 
-func (p *emailRequest) getPersonalisation() personalisation {
+func (p *emailRequest) GetPersonalisation() personalisation {
 	return p._personalisation
-}
-
-func (p *emailRequest) build() {
-
 }
 
 func (p *emailRequest) validate() bool {
 	// TODO VALIDATE EMAIL
 
 	return true
+}
+
+func (p *emailRequest) Build(email string) emailRequest {
+
+	var req emailRequest
+	req._email = email
+
+	return req
+
 }
