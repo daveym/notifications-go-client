@@ -1,6 +1,7 @@
 package model
 
 import "regexp"
+import "github.com/pkg/errors"
 
 // EmailRequest - Represents an email request
 type EmailRequest interface {
@@ -33,11 +34,18 @@ func (p *emailRequest) Build(email string, templateID string, pers personalisati
 	var err error
 
 	if validateEmail(email) {
-		req._email = email
-		req._templateID = templateID
-		req._personalisation = pers
-
+		errors.Wrap(err, "Email validation failed")
+		return req, err
 	}
+
+	if templateID == "" {
+		errors.Wrap(err, "Template id cannot be empty")
+		return req, err
+	}
+
+	req._email = email
+	req._templateID = templateID
+	req._personalisation = pers
 
 	return req, err
 }
