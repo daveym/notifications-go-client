@@ -4,6 +4,7 @@ package model
 type StatusResponse interface {
 	GetID() string
 	GetStatus() string
+	Build(string, string) (statusResponse, error)
 }
 
 type statusResponse struct {
