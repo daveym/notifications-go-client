@@ -5,6 +5,7 @@ import "github.com/pkg/errors"
 // Personalisation - Represents information used to personalize a message sent through GovNotify service.
 type Personalisation interface {
 	asMap() string
+	Build(string, string) (personalisation, error)
 }
 
 type personalisation struct {

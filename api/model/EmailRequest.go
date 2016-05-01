@@ -8,6 +8,7 @@ type EmailRequest interface {
 	GetEmail() string
 	GetTemplateId() string
 	GetPersonalisation() personalisation
+	Build(string, string, personalisation) (emailRequest, error)
 }
 
 type emailRequest struct {

@@ -3,6 +3,7 @@ package model
 // NotificationCreatedResponse - Represents information available at the time of requesting a notification.
 type NotificationCreatedResponse interface {
 	GetID() string
+	Build(string) (notificationCreatedResponse, error)
 }
 
 type notificationCreatedResponse struct {

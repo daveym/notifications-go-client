@@ -7,6 +7,7 @@ type SmsRequest interface {
 	GetEmail() string
 	GetTemplateId() string
 	GetPersonalisation() personalisation
+	Build(string, string, personalisation) (smsRequest, error)
 }
 
 type smsRequest struct {
