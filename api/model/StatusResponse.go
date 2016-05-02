@@ -1,28 +1,32 @@
 package model
 
-// StatusResponse - Represents status information of the already requested notifications.
-type StatusResponse interface {
+// IStatusResponse - Interface Representing status information of the already requested notifications.
+type IStatusResponse interface {
 	GetID() string
 	GetStatus() string
-	Build(string, string) (statusResponse, error)
+	Build(string, string) (StatusResponse, error)
 }
 
-type statusResponse struct {
+// StatusResponse - Implementation of IStatusResponse Interface
+type StatusResponse struct {
 	_ID     string
 	_status string
 }
 
-func (p *statusResponse) GetID() string {
+// GetID - Returns a status response ID
+func (p *StatusResponse) GetID() string {
 	return p._ID
 }
 
-func (p *statusResponse) GetStatus() string {
+// GetStatus - Returns a status response status
+func (p *StatusResponse) GetStatus() string {
 	return p._status
 }
 
-func (p *statusResponse) Build(id string, status string) (statusResponse, error) {
+// Build - Builds a new instance of a StatusResponse
+func (p *StatusResponse) Build(id string, status string) (StatusResponse, error) {
 
-	var res statusResponse
+	var res StatusResponse
 	var err error
 
 	res._ID = id

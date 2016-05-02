@@ -2,22 +2,25 @@ package model
 
 import "github.com/pkg/errors"
 
-// StatusRequest - Returns an id of notification a status of which is requested.
-type StatusRequest interface {
+// IStatusRequest - Interface defining the  id of notification status
+type IStatusRequest interface {
 	GetNotificationID() string
 }
 
-type statusRequest struct {
+// StatusRequest - Implementation of SItatusRequest interface
+type StatusRequest struct {
 	_notificationID string
 }
 
-func (p *statusRequest) GetNotificationID() string {
+// GetNotificationID - Returns a notification ID
+func (p *StatusRequest) GetNotificationID() string {
 	return p._notificationID
 }
 
-func (p *statusRequest) Build(notificationID string) (statusRequest, error) {
+// Build - Builds a new instance of a StatusReuest
+func (p *StatusRequest) Build(notificationID string) (StatusRequest, error) {
 
-	var req statusRequest
+	var req StatusRequest
 	var err error
 
 	if notificationID == "" {

@@ -3,35 +3,40 @@ package model
 import "regexp"
 import "github.com/pkg/errors"
 
-// EmailRequest - Represents an email request
-type EmailRequest interface {
+// IEmailRequest - Represents an email request interface
+type IEmailRequest interface {
 	GetEmail() string
 	GetTemplateId() string
-	GetPersonalisation() personalisation
-	Build(string, string, personalisation) (emailRequest, error)
+	GetPersonalisation() Personalisation
+	Build(string, string, Personalisation) (EmailRequest, error)
 }
 
-type emailRequest struct {
+// EmailRequest - implementation of IEmailRequest interface
+type EmailRequest struct {
 	_email           string
 	_templateID      string
-	_personalisation personalisation
+	_personalisation Personalisation
 }
 
-func (p *emailRequest) GetEmail() string {
+// GetEmail - Returns the email address.
+func (p *EmailRequest) GetEmail() string {
 	return p._email
 }
 
-func (p *emailRequest) GetTemplateID() string {
+// GetTemplateID - Returns a TemplateID
+func (p *EmailRequest) GetTemplateID() string {
 	return p._templateID
 }
 
-func (p *emailRequest) GetPersonalisation() personalisation {
+// GetPersonalisation - Returns a Personalisation struct
+func (p *EmailRequest) GetPersonalisation() Personalisation {
 	return p._personalisation
 }
 
-func (p *emailRequest) Build(email string, templateID string, pers personalisation) (emailRequest, error) {
+// Build - Builds a new Email Request object
+func (p *EmailRequest) Build(email string, templateID string, pers Personalisation) (EmailRequest, error) {
 
-	var req emailRequest
+	var req EmailRequest
 	var err error
 
 	if validateEmail(email) {

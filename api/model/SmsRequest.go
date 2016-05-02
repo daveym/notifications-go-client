@@ -2,35 +2,40 @@ package model
 
 import "github.com/pkg/errors"
 
-// SmsRequest - Represents an SMS request
-type SmsRequest interface {
+// ISMSRequest - Represents an SMS request interface
+type ISMSRequest interface {
 	GetEmail() string
 	GetTemplateId() string
-	GetPersonalisation() personalisation
-	Build(string, string, personalisation) (smsRequest, error)
+	GetPersonalisation() Personalisation
+	Build(string, string, Personalisation) (SMSRequest, error)
 }
 
-type smsRequest struct {
+// SMSRequest - Represents the implementation of the SMS request interface
+type SMSRequest struct {
 	_phoneNumber     string
 	_templateID      string
-	_personalisation personalisation
+	_personalisation Personalisation
 }
 
-func (p *smsRequest) GetPhoneNumber() string {
+// GetPhoneNumber - Return a phone number
+func (p *SMSRequest) GetPhoneNumber() string {
 	return p._phoneNumber
 }
 
-func (p *smsRequest) GetTemplateID() string {
+// GetTemplateID - Return the TemplateID
+func (p *SMSRequest) GetTemplateID() string {
 	return p._templateID
 }
 
-func (p *smsRequest) GetPersonalisation() personalisation {
+// GetPersonalisation - Return the personalisation
+func (p *SMSRequest) GetPersonalisation() Personalisation {
 	return p._personalisation
 }
 
-func (p *smsRequest) Build(phoneNumber string, templateID string, pers personalisation) (smsRequest, error) {
+// Build - Build a new instance of an SMS Request
+func (p *SMSRequest) Build(phoneNumber string, templateID string, pers Personalisation) (SMSRequest, error) {
 
-	var req smsRequest
+	var req SMSRequest
 	var err error
 
 	if phoneNumber == "" {

@@ -1,6 +1,6 @@
 package api
 
-//  GovNotifyApi - Client to handle communication with Gov Notify API.
-type GovNotifyApi interface {
-	sendEmail(request emailRequest) NotificationCreatedResponse
+// GovNotifyAPI - Client to handle communication with Gov Notify API.
+type GovNotifyAPI interface {
+	//sendEmail(request EmailRequest) NotificationCreatedResponse
 }

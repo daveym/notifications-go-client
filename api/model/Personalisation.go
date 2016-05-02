@@ -2,23 +2,26 @@ package model
 
 import "github.com/pkg/errors"
 
-// Personalisation - Represents information used to personalize a message sent through GovNotify service.
-type Personalisation interface {
+// IPersonalisation - Interface representing information used to personalize a message sent through GovNotify service.
+type IPersonalisation interface {
 	asMap() string
-	Build(string, string) (personalisation, error)
+	Build(string, string) (Personalisation, error)
 }
 
-type personalisation struct {
+// Personalisation - Implementation of the IPersonalisation interface
+type Personalisation struct {
 	_store map[string]string
 }
 
-func (p *personalisation) asMap() map[string]string {
+// asMap - returns the personalisation information as a map
+func (p *Personalisation) asMap() map[string]string {
 	return p._store
 }
 
-func (p *personalisation) Build(name string, value string) (personalisation, error) {
+// Build - Builds a new Personalisation instance
+func (p *Personalisation) Build(name string, value string) (Personalisation, error) {
 
-	var res personalisation
+	var res Personalisation
 	var err error
 
 	if name == "" || value == "" {
