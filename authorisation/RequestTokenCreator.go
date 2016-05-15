@@ -22,8 +22,8 @@ func (j *JWTReqestTokenCreator) Create(resourcePath string, body string, issuer 
 
 	token := jwt.New(jwt.SigningMethodHS256)
 
-	token.Claims["foo"] = "bar"
-	token.Claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+	token.Claims["ISSUER"] = issuer
+	token.Claims["ISSUED_AT"] = time.Now()
 
 	tokenString, err := token.SignedString(j._claimKeyRequestSignature)
 
