@@ -4,3 +4,9 @@ package authorisation
 type IRequestTokenCreator interface {
 	Create(string, string, string, string) string
 }
+
+// JWTReqestTokenCreator - JWT implementation of IRequestTokenCreator
+type JWTReqestTokenCreator struct {
+	_claimKeyRequestSignature string
+	_claimKeyPayloadSignature string
+}
