@@ -20,12 +20,13 @@ type JWTReqestTokenCreator struct {
 // Create - Creates a JWT token. JwtTokenCreator uses HMAC-SHA256 signature, by default.
 func (j *JWTReqestTokenCreator) Create(resourcePath string, body string, issuer string, secret string) (string, error) {
 
+	var err error
+	var tokenString string
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	token.Claims["ISSUER"] = issuer
 	token.Claims["ISSUED_AT"] = time.Now()
-
-	tokenString, err := token.SignedString(j._claimKeyRequestSignature)
+	token.Claims[j._claimKeyRequestSignature], err = token.SignedString(secret)
 
 	return tokenString, err
 
